@@ -2,6 +2,12 @@ h1{
     color: blue;
 }
 
-home-intro{
+.home-intro{
     text-align: center;
+    border:3px solid black;
+    background-color: lightblue;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+#p2{
+    color:blue;
 }
