@@ -1,1 +1,105 @@
-<h1>Hi this is teju</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .left-bar {
+           position: fixed;
+           top: 20px;
+           left: 20px;
+        }
+        .right-bar {
+           position: fixed;
+           top: 20px;
+           right: 20px;
+        }
+        .search-section {
+           text-align: center;
+           margin-top: 100px;
+        }
+        .first {
+           color: blue;
+        }
+        .second {
+           color: rgb(201, 21, 225);
+        }
+        .tagline {
+           font-size: 14px;
+           color: #888;
+        }
+        .lens{
+            position:relative;
+            left: 30px;
+
+        }
+        .searchh-box {
+            padding: 15px 15px 15px 45px;
+            border-radius: 20px;
+            width: 50%;
+           
+        }
+        #suggestion-box {
+            border: 1px solid #ccc;
+            width:53%;
+            margin-left: 26%;
+            margin-right:40%;
+            
+        }
+        #suggestion-item{
+            border: 1px solid black;
+            padding: 10px;
+            border-radius:10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    <span class="left-bar">&#9881</span>
+    <span class="right-bar">&#x2022; online | &#128339; -ms</span>
+    </div>
+    <div class="search-section">
+    <h1><span class="first">DeanDi</span> <span class="second">Laurentis:)</span></h1>
+    <p class="tagline"> One Million Pages. Four algorithms. Prefix Based Auto Suggest
+    </p>
+   <span> 
+    <span class="lens">&#128269;</span>
+        <input class="searchh-box" id="search-box"placeholder="Start typing to search phrases">
+   </span>
+   <div id="suggestion-box">
+        <!-- Suggestion Box -->
+   </div>
+    </div>
+    <script>
+        var searchBox = document.getElementById('search-box');
+        searchBox.addEventListener('input', function() {
+            var userInput = searchBox.value;
+            if(userInput.trim()===""){
+                // Clear the suggestion box
+                document.getElementById('suggestion-box').innerHTML = '';
+                return;
+            }else{
+                var url1="https://autosuggest-backend.onrender.com/api/autosuggest?q=";
+                var url3="&algorithm=brute&limit=10&weighted=false";
+                var url=url1+userInput+url3;
+                fetch(url).
+                    then(function(response){
+                        return response.json();
+                    })
+                    .then(function(data){
+                        console.log(data);
+                        var resultsalary=data.results;
+                        var htmlresults = '';
+                        for (var i = 0; i < resultsalary.length; i++) {
+                            htmlresults += "<div id='suggestion-item'>" + resultsalary[i].text + '</div>';
+                        }
+                    document.getElementById('suggestion-box').innerHTML = htmlresults;
+                    })
+                     
+            }
+        
+        });
+    </script>
+</body>
+</html>
